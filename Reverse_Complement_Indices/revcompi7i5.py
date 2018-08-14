@@ -9,13 +9,6 @@ i7 = pandas.read_csv('CZB_TruSeq_12BP_i7.csv')
 i5 = pandas.read_csv('CZB_TruSeq_12BP_i5.csv')
 
 
-# In[91]:
-
-
-i7.head()
-i5.head()
-
-
 # In[92]:
 
 
@@ -47,13 +40,6 @@ def reverse (sequence):
         count = count+1
     return reverseseq;
 
-
-# In[94]:
-
-
-i7["Forward index"].head()
-
-
 # In[95]:
 
 
@@ -63,7 +49,7 @@ i5["RevComp Index"] = str(i5["RevComp Index"])
 
 # In[96]:
 
-
+#taking forward index and creating reverse complement from your CSV for i5
 count=0
 for forindex in i7["Forward index"]:
     i7.set_value(count, "Comp Index", "".join([complement(y) for y in forindex]))
@@ -74,7 +60,7 @@ i7=i7.drop(["Comp Index"], axis=1)
 
 # In[97]:
 
-
+#taking forward index and creating reverse complement from your CSV for i5
 count=0
 for forindex in i5["Forward index"]:
     i5.set_value(count, "Comp Index", "".join([complement(y) for y in forindex]))
@@ -83,20 +69,14 @@ for forindex in i5["Forward index"]:
 i5=i5.drop(["Comp Index"], axis=1)
 
 
-# In[98]:
+# In[89]: write to i7 indices
 
 
-i5.head()
-
-
-# In[89]:
-
-
-i7.to_csv("CZB_TruSeq_12BP_i7.csv")
+i7.to_csv("CZB_TruSeq_12BP_i7_forward_and_reversecomp.csv")
 
 
 # In[99]:
 
 
-i5.to_csv("CZB_TruSeq_12BP_i5.csv")
+i5.to_csv("CZB_TruSeq_12BP_i5_forward_and_reversecomp.csv")
 
