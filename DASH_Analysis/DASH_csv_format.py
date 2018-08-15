@@ -92,26 +92,6 @@ df=df.drop('Reads DASHed',axis=1)
 
 
 
-# In[19]:
-
-
-variables = df['Filename'].str.split('_',expand=True)
-
-
-
-# In[20]:
-
-variablestoadd = variables [[4,5,6,7,8,9,10,11]]
-variablestoadd=variablestoadd.rename(index=int, columns={ 4 : "DASH Experiment", 5 : "Subpool", 6 : "Sample ID", 7 : "Amount of Starting DNA", 8 : "Guides Used", 9 : "Cas9 Amount" , 10 : "Sequencing ID", 11: "Read 1 or 2" })
-
-
-# In[21]:
-
-
-df=pd.concat([df, variablestoadd],axis=1)
-
-
-
 # In[23]:
 
 
