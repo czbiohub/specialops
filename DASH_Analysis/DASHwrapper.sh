@@ -19,11 +19,10 @@ for i in filt*; do seqtk seq -A $i > ${i:0:-1}asta; done;
 
 #cut TruSeq adaptors
 pip install cutadapt
-for i in filt*.fasta; do cutadapt -a GATCGGAAGAGCACACGTCT -o ${i:0:-6}_cutNEBF.fasta $i; done;
-for i in filt*_cutNEBF.fasta; do cutadapt -a AGATCGGAAGAGCACACGTCT -o ${i:0:-6}_cutNEBR.fasta $i; done;
+for i in filt*1.fasta; do cutadapt -j 16 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o ${i:0:-7}1_cutNEBF.fasta -p ${i:0:-7}2_cutNEBR.fasta $i ${i:0:-7}2.fasta -m 36; done;
 
 #run score_guides
-for i in filt*cutNEBR.fasta; do score_guides $path_to_DASHguides $i >> $output_file.txt; done
+for i in filt*cut*.fasta; do score_guides $path_to_DASHguides $i >> $output_file.txt; done
 
 tr "=" "," < $output_file.txt  > $output_file.csv
 printf "SampleFilename,PercentDASHable\n" > ${output_file}_unformatted.csv
