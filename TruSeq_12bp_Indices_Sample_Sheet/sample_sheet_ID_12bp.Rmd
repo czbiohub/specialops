@@ -64,7 +64,7 @@ if (sequencer == "novaseq" ||
   update_index_subset <- data.frame(
       Index_ID = index_subset_i7$index_name,
       Index2_ID = index_subset_i5$index_name,
-      Index = index_subset_i7$`Forward index`,
+      Index = index_subset_i7$`RevComp index`,
       Index2 = index_subset_i5$`RevComp Index`,
       well = input$`Barcode Well`,
       Sample_ID = input$Sample_ID
@@ -73,7 +73,7 @@ if (sequencer == "novaseq" ||
   update_index_subset <- data.frame(
       Index_ID = index_subset_i7$index_name,
       Index2_ID = index_subset_i5$index_name,
-      Index = index_subset_i7$`Forward index`,
+      Index = index_subset_i7$`RevComp index`,
       Index2 = index_subset_i5$`Forward index`,
       well = input$`Barcode Well`,
       Sample_ID = input$Sample_ID
