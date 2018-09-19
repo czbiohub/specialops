@@ -9,7 +9,6 @@ output_file=$3
 #sync and unzip files
 aws s3 sync $aws_path .
 rm Undetermined*
-gunzip *.gz
 
 #subsample to 100,000 reads
 for i in *.fastq.gz;

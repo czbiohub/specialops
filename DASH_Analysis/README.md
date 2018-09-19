@@ -1,8 +1,8 @@
 # DASH analysis
-A wrapper script for subsampling, filtering, cutting TruSeq adaptors and running DASHit score guides on a directory of fastq files
+A wrapper script for subsampling, filtering, cutting TruSeq adaptors and running DASHit score guides on a directory of fastq.gz files. Recommend to run in tmux or screen.
 
 ### Installation
-Transfer or copy the DASHwrapper.sh and the Python scripts (DASH_csv_format_interactive.py and DASH_csv_format.py) into the directory with the files you wish to perform the analysis on
+Transfer or copy the DASHwrapper.sh and the Python scripts (DASH_csv_format_interactive.py and DASH_csv_format.py) into the directory with the files you wish to perform the analysis on.
 
 ### Running the script
 
