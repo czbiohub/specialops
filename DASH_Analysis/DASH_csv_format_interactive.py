@@ -44,6 +44,8 @@ reads= reads.rename(index=int, columns={ 0 : "total reads DASHed", 1 : "total re
 df=pd.concat([df, reads],axis=1)
 df=df.drop('Reads DASHed',axis=1)
 
+# In[23]: write to CSV file
+df.to_csv("%s_unformatted.csv" %txtfile)
 
 # In[53]: split up the filename into variable based on underscore
 variables = df['Filename'].str.split('_',expand=True)
