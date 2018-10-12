@@ -1,14 +1,11 @@
 #$1 will be the file path to your aws bucket with the MiSeq reads (ex:s3://czbiohub-seqbot/fastqs/180612_M05295_0117_000000000-G1GKV/rawdata/)
-aws s3 sync $1 . --exclude "*" --include "*.fastq.gz" --include "*.fastq"
-
-#will unzip all files in the folder
-gunzip *.gz
+aws s3 sync $1 . --exclude "*" --include "*.fastq.gz"
 
 #search for the read counts
-grep -c "@M0" *R1*.fastq > readcounts.txt
+zgrep -c "@M0" *R1*.gz > readcounts.txt
 
 #add the adaptor read counts
-grep -c ^GATCGGAAGAGCACACGTCT *R1*.fastq > adaptorcounts.txt
+zgrep -c ^GATCGGAAGAGCACACGTCT *R1*.gz > adaptorcounts.txt
 
 #cut the first column of adaptor counts
 cut -d: -f2 < adaptorcounts.txt > adaptorcountsnumbers.txt
