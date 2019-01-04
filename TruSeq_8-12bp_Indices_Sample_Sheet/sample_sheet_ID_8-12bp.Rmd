@@ -82,6 +82,8 @@ input$i5_name <- paste(input$i5_plate,"_",input$Barcode_Well, sep="")
 index_subset_i7 <- subset(indices, index_name %in% input$i7_name)
 index_subset_i5 <- subset(indices, index_name %in% input$i5_name)
 
+index_subset_i7 <- index_subset_i7[match(input$i7_name, index_subset_i7$index_name),]
+index_subset_i5 <- index_subset_i5[match(input$i5_name, index_subset_i5$index_name),]
 if (sequencer == "novaseq" ||
     sequencer == "miseq") {
   update_index_subset <- data.frame(
