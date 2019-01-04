@@ -2,7 +2,7 @@
 An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices
 
 ### Installation
-Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, the MasterComboList and the i7-i5-REVCOMP files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZBTest12bp.csv"`.
+Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, the MasterComboList and the i7-i5-REVCOMP files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZBTest12bp.csv"` for editing, plus a few example outputs.
 
 ```
 git clone https://github.com/czbiohub/specialops.git

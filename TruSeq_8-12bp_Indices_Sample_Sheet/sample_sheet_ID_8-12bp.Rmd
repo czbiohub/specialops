@@ -17,7 +17,7 @@ rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Ho
 
 Choose a sequencer: iseq, miseq, nextseq, novaseq
 ```{r Sequencer}
-sequencer <- "nextseq"
+sequencer <- "novaseq"
 ```
 
 Enter the name of your file
