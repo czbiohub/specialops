@@ -25,14 +25,14 @@ The rest of the columns are metadata columns. You have two options.
 
 ### Editing the script
 
-Open the `sample_sheet_ID_8-12bp.Rmd`file in RStudio.
+Open the `"sample_sheet_ID_8-12bp.Rmd"`file in RStudio.
 
 1. Set the working directory on Line 20 by changing the path
 2. Change the sequencer on Line 26 to iseq, miseq, nextseq or novaseq
 3. Change the filename on Line 31 to the name of your sample sheet CSV that you prepared
 4. Pick Metadata Option 1 or 2 from above
-    * If using **Metadata Option 1**, fill in the values for the metadata on lines 38-48. Empty strings can be used for blank fields. Either DELETE, COMMENT (*CMD+SHIFT+C*), or set eval = FALSE in chunk options for Metadata Option 2.
-    * If using **Metadata Option 2**, do nothing.
+    * If using **Metadata Option 1**, fill in the values for the metadata on lines 38-48. Empty strings can be used for blank fields. Either DELETE, COMMENT (*CMD+SHIFT+C*), or set eval = FALSE in chunk options Metadata Option 2 of 2 chunk on lines 53-65.
+    * If using **Metadata Option 2**, you do not have to change anything in the script.
 
 ### Running the script
 
