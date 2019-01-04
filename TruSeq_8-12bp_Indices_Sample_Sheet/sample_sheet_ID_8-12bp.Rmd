@@ -1,0 +1,154 @@
+---
+
+title: "sample_sheet_rmd_ID"
+output: html_document
+---
+
+Import tidyverse 
+```{r} 
+library(tidyverse)
+```
+
+
+Clean out variables in global env from previous runs
+```{r}
+rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Host,Sample_ID,Organism,input,Sample_Owner,sequencer,Study_Description,Study_ID,Tissue_Source,update_index_subset, index_subset_i5, indices, filename, index_subset_i7, dual)
+```
+
+Set working directory
+```{r}
+setwd("../8-12bp_Sample_Sheet/")
+```
+
+
+Choose a sequencer: iseq, miseq, nextseq, novaseq
+```{r Sequencer}
+sequencer <- "nextseq"
+```
+
+Enter the name of your file
+```{r Filename with your Sample IDs and Barcode Information}
+filename <- "CZBTest12bp.csv"
+input <- read_csv(filename)
+```
+
+
+Metadata Option 1 of 2: These values will be the same for the entire column of sample sheet. Alternatively, skip to the next section.
+```{r Metadata Option 1 of 2: same for whole sample sheet}
+Study_ID <- "TB-FLASH"
+Study_Description <- "CSF DNA seq of patients with TB/HIV co-infection as controls for future FLASHed samples"
+BioSample_ID <- "TB-FLASH-CSF-DNA"
+BioSample_Description <- "Cerebrospinal fluid"
+Sample_ID <- c()
+Sample_Owner <- "Amy Lyden"
+Organism <- "mycobacterium tuberculosis"
+Host <- "human"
+Gender <- ""
+Tissue_Source <- ""
+FACS_Markers <- ""
+```
+
+Metadata Option 2 of 2: Run this section if you have filled in the sample sheet columns in your CSV file.
+```{r Metadata Option 2 of 2: filled metadata in CSV}
+input[is.na(input)] <- ""
+
+Study_ID <- input$Study_ID
+Study_Description <- input$Study_Description
+BioSample_ID <- input$BioSample_ID
+BioSample_Description <- input$BioSample_Description
+Sample_ID <- c()
+Sample_Owner <- input$Sample_Owner
+Organism <- input$Organism
+Host <- input$Host
+Gender <- input$Gender
+Tissue_Source <- input$Tissue_Source
+FACS_Markers <- input$FACS_Markers
+```
+
+Please specify correct input and index files (specify path if not in same wd)
+```{r}
+indices <- read_csv(file = "2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-i7-i5-REVCOMP.csv")
+dual <- read_csv(file = "2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterComboList.csv")
+```
+
+
+No changes beyond this point. This part of the code will extract the correct barcodes from the index file, use the correct i5 index (i5 or revcom), then fill in the rest of the sample sheet with given information. Output will be a file with today's date.
+```{r}
+
+
+input$i7_plate <- dual[match(input$Dual_Plate_ID, dual$Dual_Plate_ID),]$i7_Plate_ID
+input$i5_plate <- dual[match(input$Dual_Plate_ID, dual$Dual_Plate_ID),]$i5_Plate_ID
+
+
+indices$index_name <- paste(indices$`Plate Name`,"_",indices$`Plate Well`, sep="")
+
+input$i7_name <- paste(input$i7_plate,"_",input$Barcode_Well, sep="")
+input$i5_name <- paste(input$i5_plate,"_",input$Barcode_Well, sep="")
+
+index_subset_i7 <- subset(indices, index_name %in% input$i7_name)
+index_subset_i5 <- subset(indices, index_name %in% input$i5_name)
+
+if (sequencer == "novaseq" ||
+    sequencer == "miseq") {
+  update_index_subset <- data.frame(
+      Index_ID = index_subset_i7$index_name,
+      Index2_ID = index_subset_i5$index_name,
+      Index = index_subset_i7$REVCOMPINDEX,
+      Index2 = index_subset_i5$REVCOMPINDEX,
+      well = input$Barcode_Well,
+      Sample_ID = input$Sample_ID
+    )
+} else {
+  update_index_subset <- data.frame(
+      Index_ID = index_subset_i7$index_name,
+      Index2_ID = index_subset_i5$index_name,
+      Index = index_subset_i7$REVCOMPINDEX,
+      Index2 = index_subset_i5$INDEX,
+      well = input$Barcode_Well,
+      Sample_ID = input$Sample_ID
+    )
+}
+
+update_index_subset$Sample_ID <-
+  input$Sample_ID[match(update_index_subset$Index_ID, input$i7_name)]
+
+final_update <- update_index_subset %>%
+  add_column(
+    Study_ID,
+    Study_Description,
+    BioSample_Description,
+    BioSample_ID,
+    Sample_Owner,
+    Sample_Name = update_index_subset$Sample_ID,
+    Organism,
+    Host,
+    Gender,
+    Tissue_Source,
+    FACS_Markers
+  ) %>%
+  select(
+    Study_ID,
+    Study_Description,
+    BioSample_ID,
+    BioSample_Description,
+    Sample_ID,
+    Sample_Name,
+    Sample_Owner,
+    Index_ID,
+    Index,
+    Index2_ID,
+    Index2,
+    Organism,
+    Host,
+    Gender,
+    Tissue_Source,
+    FACS_Markers
+  )
+
+
+date2 <- Sys.Date()
+
+write_csv(final_update, paste(date2, "_", sequencer, "_", "CZB-TruSeq-SampleSheet", "_", filename, sep = ""))
+
+
+```
