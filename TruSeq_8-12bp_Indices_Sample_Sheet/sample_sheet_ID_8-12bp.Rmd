@@ -15,12 +15,6 @@ Clean out variables in global env from previous runs
 rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Host,Sample_ID,Organism,input,Sample_Owner,sequencer,Study_Description,Study_ID,Tissue_Source,update_index_subset, index_subset_i5, indices, filename, index_subset_i7, dual)
 ```
 
-Set working directory
-```{r}
-setwd("../8-12bp_Sample_Sheet/")
-```
-
-
 Choose a sequencer: iseq, miseq, nextseq, novaseq
 ```{r Sequencer}
 sequencer <- "nextseq"
