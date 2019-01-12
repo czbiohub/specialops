@@ -22,7 +22,7 @@ sequencer <- "novaseq"
 
 Enter the name of your file
 ```{r Filename with your Sample IDs and Barcode Information}
-filename <- "CZBTest12bp.csv"
+filename <- "../TruSeq_8-12bp_Indices_Sample_Sheet/CZBTest12bp.csv"
 input <- read_csv(filename)
 ```
 
@@ -143,7 +143,8 @@ final_update <- update_index_subset %>%
 
 
 date2 <- Sys.Date()
-
+files <- as.list(str_split(filename,"/"))
+filename <- files[[1]][length(files[[1]])]
 write_csv(final_update, paste(date2, "_", sequencer, "_", "CZB-TruSeq-SampleSheet", "_", filename, sep = ""))
 
 
