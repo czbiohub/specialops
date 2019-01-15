@@ -90,7 +90,7 @@ if (sequencer == "novaseq" ||
       Index_ID = index_subset_i7$index_name,
       Index2_ID = index_subset_i5$index_name,
       Index = index_subset_i7$REVCOMPINDEX,
-      Index2 = index_subset_i5$REVCOMPINDEX,
+      Index2 = index_subset_i5$INDEX,
       well = input$Barcode_Well,
       Sample_ID = input$Sample_ID
     )
@@ -99,7 +99,7 @@ if (sequencer == "novaseq" ||
       Index_ID = index_subset_i7$index_name,
       Index2_ID = index_subset_i5$index_name,
       Index = index_subset_i7$REVCOMPINDEX,
-      Index2 = index_subset_i5$INDEX,
+      Index2 = index_subset_i5$REVCOMPINDEX,
       well = input$Barcode_Well,
       Sample_ID = input$Sample_ID
     )
