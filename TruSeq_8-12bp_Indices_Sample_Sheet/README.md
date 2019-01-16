@@ -2,7 +2,7 @@
 An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices
 
 ### Installation
-Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, the MasterComboList and the i7-i5-REVCOMP files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZBTest12bp.csv"` for editing, plus a few example outputs.
+Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, and the `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-FULL.csv"` files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZBTest12bp.csv"` for editing, plus an example output.
 
 ```
 git clone https://github.com/czbiohub/specialops.git
@@ -17,21 +17,15 @@ You must fill in the following three columns:
 
 The Dual_Plate_ID should be in the format Dual-XXX. The Barcode_Well should be A1, B12, etc, not A01. The Sample_ID will become your fastq filename.
 
-The rest of the columns are metadata columns. You have two options.
-
-**Metadata Option 1**: If all of your samples have the same metadata, you can leave them all blank and enter in values in the script later. In this option, all metadata will be the same for all samples (ex: for study ID, all will say "VAP"; for BioSample_Description, all will say "blood", for host, all will say "human").
-
-**Metadata Option 2**: Alternatively if you have mixed samples or studies in a sequencing run, you can fill in all of the metadata columns with the desired information (ex: you can fill in half with the study ID "VAP" and half with the study ID "mBAL", then for host, fill in all with "human"). Any blanks in these columns will appear as blanks in your final sample sheet.
+The rest of the columns are metadata columns. You can fill in all of your metadata, or you may leave some cells blank. In the Rmd script, you will have the option to fill in values which will populate the empty cells for a given column. For example, if you leave the "Host" column blank, you can type "human" in the script and the whole column will say "human". Alternatively, if you fill in two cells in the "Host" column to say "mouse" and leave the rest blank, you can type "human" in the script and all cells in that column will say "human" except the two cells you filled in with "mouse."
 
 ### Editing the script
 
 Open the `"sample_sheet_ID_8-12bp.Rmd"`file in RStudio.
 
 1. Change the sequencer on Line 20 to iseq, miseq, nextseq or novaseq
-2. Change the filename on Line 25 to the name of your sample sheet CSV that you prepared
-3. Pick Metadata Option 1 or 2 from above
-    * If using **Metadata Option 1**, fill in the values for the metadata on lines 32-42. Empty strings can be used for blank fields. Either DELETE, COMMENT (*CMD+SHIFT+C*), or set eval = FALSE in chunk options Metadata Option 2 of 2 chunk on lines 47-59.
-    * If using **Metadata Option 2**, you do not have to change anything in the script.
+2. Change the filename on Line 25 to the name of your sample sheet CSV that you prepared (this can include a path to the filename)
+3. In Metadata Step 1 of 2, on Lines 31-40, fill in a constant value to populate blank cells. If you wish to leave blank cells blank, give the variable an empty string `""`.
 
 ### Running the script
 
