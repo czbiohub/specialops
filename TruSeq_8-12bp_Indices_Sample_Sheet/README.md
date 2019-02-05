@@ -2,13 +2,20 @@
 An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices
 
 ### Installation
-Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, and the `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp.csv"` files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZB-Sample-Input-Test.csv"` for editing, plus an example output `"2019-02-05_novaseq_12bp_CZB-TruSeq-SampleSheet_CZB-Sample-Input-Test.csv"`.
+Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"`. This can be accomplished by cloning the specialops directory from github. 
 
 ```
 git clone https://github.com/czbiohub/specialops.git
 ```
 
-### Open and fill in the example sample sheet and save it as a CSV
+This folder contains:
++ an example input CSV `"CZB-Sample-Input-Test.csv"`
++ an example output sample sheet CSV `"2019-02-05_novaseq_12bp_CZB-TruSeq-SampleSheet_CZB-Sample-Input-Test.csv"` corresponding to the above input
++ the master index list with the 8 and 12 bp sequences  `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp.csv"` 
++ the Rmd script to be run in RStudio `"sample_sheet_ID_8-12bp.Rmd"`
+
+
+### Open and fill in the example input CSV and save it as a new CSV
 
 You must fill in the following three columns:
 1. Dual_Plate_ID
