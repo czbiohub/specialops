@@ -41,10 +41,8 @@ FACS_Markers_fill <- ""
 ```
 
 
-Metadata Step 2 of 2: This section will pull in the metadata from your sample sheet and the populate empty cells with the values from Metadata Step 2. Do not edit.
+Metadata Step 2 of 2: This section will pull in the metadata from your sample sheet and the populate empty cells with the values from Metadata Step 2. Do not edit below this line, you can now press *OPTION+CMD+R* or *RUN ALL* under *Run* in the upper right of the script.
 ```{r Metadata Step 2 of 2: filled metadata in CSV}
-
-
 Study_ID <- input$Study_ID
 Study_Description <- input$Study_Description
 BioSample_ID <- input$BioSample_ID
@@ -67,8 +65,6 @@ Host[is.na(Host)] <- Host_fill
 Gender[is.na(Gender)] <- Gender_fill
 Tissue_Source[is.na(Tissue_Source)] <- Tissue_Source_fill
 FACS_Markers[is.na(FACS_Markers)] <- FACS_Markers_fill
-
-
 ```
 
 

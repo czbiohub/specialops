@@ -2,7 +2,7 @@
 An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices
 
 ### Installation
-Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, and the `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-FULL.csv"` files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZBTest12bp.csv"` for editing, plus an example output.
+Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, and the `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-FULL.csv"` files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZB-12bp-Sample-Input-Test.csv"` for editing, plus an example output `"2019-02-05_novaseq_CZB-TruSeq-SampleSheet_CZB-12bp-Sample-Input-Test.csv"`.
 
 ```
 git clone https://github.com/czbiohub/specialops.git
