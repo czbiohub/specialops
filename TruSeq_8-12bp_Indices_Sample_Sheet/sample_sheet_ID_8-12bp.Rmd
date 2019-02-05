@@ -12,7 +12,7 @@ library(tidyverse)
 
 Clean out variables in global env from previous runs
 ```{r}
-rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Host,Sample_ID,Organism,input,Sample_Owner,sequencer,Study_Description,Study_ID,Tissue_Source,update_index_subset, index_subset, Gender_fill, Host_fill,Sample_Owner_fill,Organism_fill,Tissue_Source_fill, filename, index_subset_ordered, dualindices, files, BioSample_Description_fill,BioSample_ID_fill,FACS_Markers_fill,Study_Description_fill,Study_ID_fill)
+rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Host,Sample_ID,Organism,input,Sample_Owner,sequencer,Study_Description,Study_ID,Tissue_Source,update_index_subset, index_subset, Gender_fill, Host_fill,Sample_Owner_fill,Organism_fill,Tissue_Source_fill, filename, index_subset_ordered, dualindices, files, BioSample_Description_fill,BioSample_ID_fill,FACS_Markers_fill,Study_Description_fill,Study_ID_fill, indexlength)
 ```
 
 Choose a sequencer: iseq, miseq, nextseq, novaseq
@@ -20,9 +20,14 @@ Choose a sequencer: iseq, miseq, nextseq, novaseq
 sequencer <- "novaseq"
 ```
 
+Specify index length: 8, 12
+```{r Sequencer}
+indexlength <- 12
+```
+
 Enter the name of your file
 ```{r Filename with your Sample IDs and Barcode Information}
-filename <- "../TruSeq_8-12bp_Indices_Sample_Sheet/CZBTest12bp.csv"
+filename <- "../TruSeq_8-12bp_Indices_Sample_Sheet/CZB-Sample-Input-Test.csv"
 input <- read_csv(filename)
 ```
 
@@ -70,7 +75,7 @@ FACS_Markers[is.na(FACS_Markers)] <- FACS_Markers_fill
 
 Please specify correct input and index files (specify path if not in same wd)
 ```{r}
-dualindices <- read_csv(file ="2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-FULL.csv")
+dualindices <- read_csv(file ="2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp.csv")
 ```
 
 
@@ -80,19 +85,34 @@ dualindices$index_name <- paste(dualindices$Dual_Plate_ID,"_",dualindices$Barcod
 
 input$index_name <- paste(input$Dual_Plate_ID,"_", input$Barcode_Well, sep="")
 
-input$index_name <- paste(input$Dual_Plate_ID,"_", input$Barcode_Well, sep="")
-
 index_subset <- subset(dualindices, index_name %in% input$index_name)
 
 index_subset_ordered <- index_subset[match(input$index_name, index_subset$index_name),]
 
-if (sequencer == "novaseq" ||
-    sequencer == "miseq") {
+if ((sequencer == "novaseq" ||
+    sequencer == "miseq") & indexlength == 12) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index = index_subset_ordered$i7_index_RC,
       Index2 = index_subset_ordered$i5_index_F
+    )
+} else if ((sequencer == "novaseq" ||
+    sequencer == "miseq") & indexlength == 8) {
+  update_index_subset <- data.frame(
+      Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index = index_subset_ordered$i7_8bp_RC,
+      Index2 = index_subset_ordered$i5_8bp_F
+
+    )
+} else if ((sequencer == "iseq" ||
+    sequencer == "nextseq") & indexlength == 8) {
+  update_index_subset <- data.frame(
+      Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index = index_subset_ordered$i7_8bp_RC,
+      Index2 = index_subset_ordered$i5_8bp_RC
 
     )
 } else {
@@ -143,7 +163,7 @@ final_update <- update_index_subset %>%
 date2 <- Sys.Date()
 files <- as.list(str_split(filename,"/"))
 filename <- files[[1]][length(files[[1]])]
-write_csv(final_update, paste(date2, "_", sequencer, "_", "CZB-TruSeq-SampleSheet", "_", filename, sep = ""))
+write_csv(final_update, paste(date2, "_", sequencer, "_",indexlength,"bp_", "CZB-TruSeq-SampleSheet", "_", filename, sep = ""))
 
 
 ```

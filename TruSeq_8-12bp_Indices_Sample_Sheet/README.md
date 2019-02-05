@@ -2,7 +2,7 @@
 An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices
 
 ### Installation
-Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, and the `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-FULL.csv"` files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZB-12bp-Sample-Input-Test.csv"` for editing, plus an example output `"2019-02-05_novaseq_CZB-TruSeq-SampleSheet_CZB-12bp-Sample-Input-Test.csv"`.
+Transfer or copy the folder `"TruSeq_8-12bp_Indices_Sample_Sheet"` containing the Rmd script, and the `"2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp.csv"` files. This can be accomplished by cloning the specialops directory from github. This folder also contains an example sample sheet `"CZB-Sample-Input-Test.csv"` for editing, plus an example output `"2019-02-05_novaseq_12bp_CZB-TruSeq-SampleSheet_CZB-Sample-Input-Test"`.
 
 ```
 git clone https://github.com/czbiohub/specialops.git
@@ -24,8 +24,9 @@ The rest of the columns are metadata columns. You can fill in all of your metada
 Open the `"sample_sheet_ID_8-12bp.Rmd"`file in RStudio.
 
 1. Change the sequencer on Line 20 to iseq, miseq, nextseq or novaseq
-2. Change the filename on Line 25 to the name of your sample sheet CSV that you prepared (this can include a path to the filename)
-3. In Metadata Step 1 of 2, on Lines 31-40, fill in a constant value to populate blank cells. If you wish to leave blank cells blank, give the variable an empty string `""`.
+2. Change the index length on Line 25 to either 8 or 12 depending on desired length
+3. Change the filename on Line 30 to the name of your sample sheet CSV that you prepared (this can include a path to the filename)
+4. In Metadata Step 1 of 2, on Lines 36-45, fill in a constant value to populate blank cells. If you wish to leave blank cells blank, give the variable an empty string `""`.
 
 ### Running the script
 
