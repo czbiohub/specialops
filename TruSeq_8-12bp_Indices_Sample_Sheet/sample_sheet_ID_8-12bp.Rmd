@@ -75,7 +75,7 @@ FACS_Markers[is.na(FACS_Markers)] <- FACS_Markers_fill
 
 Please specify correct input and index files (specify path if not in same wd)
 ```{r}
-dualindices <- read_csv(file ="2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp.csv")
+dualindices <- read_csv(file ="2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp_020619.csv")
 ```
 
 
