@@ -1,0 +1,8 @@
+,i7_barcode,i5_barcode,i7_correct,i5_correct,reads,dual_plate_id,dual_plate_well,reads,mismatches,description
+0,GAGTACTG,TCTCTTGC,GAGTACTG,CAAGATTG,9,Dual-098,G1,9,7,"i7 matches 100% with an i7 in sample sheet, i5 does not"
+1,TGCTACAC,TGTGGAGA,TGCTACAC,ACGAACAA,8,Dual-098,D5,8,7,"i7 matches 100% with an i7 in sample sheet, i5 does not"
+2,CTCACGGT,CGTCTGAT,CTCACGGT,ACGATACG,6,Dual-098,G4,6,7,"i7 matches 100% with an i7 in sample sheet, i5 does not"
+3,GTTCTCAC,CTCGAATG,GTTCTCAC,GTTCAGGT,6,Dual-098,A2,6,6,"i7 matches 100% with an i7 in sample sheet, i5 does not"
+4,GTTCGAAG,AGGAACCT,GTTCGAAG,CAAGTGGT,5,Dual-098,F3,5,7,"i7 matches 100% with an i7 in sample sheet, i5 does not"
+5,TGCTCTAG,TTACACGC,TGCTCTAG,AGTGTCCA,5,Dual-098,G3,5,7,"i7 matches 100% with an i7 in sample sheet, i5 does not"
+6,CAAGCGTT,TGGTCGAT,CAAGCGTT,GAGTTCCA,5,Dual-098,C2,5,6,"i7 matches 100% with an i7 in sample sheet, i5 does not"

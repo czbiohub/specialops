@@ -1,0 +1,11 @@
+,i7_barcode,i5_barcode,reads,demux_conclusion,Dual_Plate_ID,well
+0,CCCCCCCC,CCCCCCCC,14,not a TruSeq dual-unique index pair,NA,NA
+1,GAGTACTG,TCTCTTGC,9,not a TruSeq dual-unique index pair,NA,NA
+2,TGCTACAC,TGTGGAGA,8,not a TruSeq dual-unique index pair,NA,NA
+3,CTCACGGT,CGTCTGAT,6,not a TruSeq dual-unique index pair,NA,NA
+4,GTTCTCAC,CTCGAATG,6,not a TruSeq dual-unique index pair,NA,NA
+5,GTTCGAAG,AGGAACCT,5,not a TruSeq dual-unique index pair,NA,NA
+6,CGCTATAT,ACCGCTAT,5,not a TruSeq dual-unique index pair,NA,NA
+7,TGCTCTAG,TTACACGC,5,not a TruSeq dual-unique index pair,NA,NA
+8,CAAGCGTT,TGGTCGAT,5,not a TruSeq dual-unique index pair,NA,NA
+9,CTCGTTCT,TCTTTCCC,5,not a TruSeq dual-unique index pair,NA,NA
