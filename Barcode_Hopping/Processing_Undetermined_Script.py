@@ -125,36 +125,37 @@ def hopped_indices(top_undetermined, dual_index_plates, sequencer, index_length)
 
     #get column names
     i7_name, i5_name = get_column_names(sequencer, index_length)
-
+    
     #read in master list of barcodes
     master_index_list = pd.read_csv("../TruSeq_8-12bp_Indices_Sample_Sheet/2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp_020619.csv")
-
+    
     #subset to plates used in this run
     subset_master_index_list = master_index_list.loc[master_index_list['Dual_Plate_ID'].isin(dual_index_plates)]
     hopped_list = []
-    hopped_indices = top_undetermined.loc[top_undetermined['i7_barcode'].isin(subset_master_index_list[i7_name])
-                                          & top_undetermined['i5_barcode'].isin (subset_master_index_list[i5_name])]
-
+    hopped_indices = top_undetermined.loc[top_undetermined['i7_barcode'].isin(master_index_list[i7_name]) 
+                                          & top_undetermined['i5_barcode'].isin (master_index_list[i5_name])]
+    
     #identify the correct i5 based on a fixed i7 and print the correct plate and the location
     for i7_barcode in hopped_indices['i7_barcode']:
         filt_subset_master_index_list = subset_master_index_list[subset_master_index_list[i7_name]==i7_barcode]
-        hopped_dict = {'i7_barcode':i7_barcode,
-                       'i5_barcode': hopped_indices[hopped_indices['i7_barcode']==i7_barcode]['i5_barcode'].values[0],
-                       'reads': hopped_indices[hopped_indices['i7_barcode']==i7_barcode]['reads'].values[0],
-                       'i5_correct':filt_subset_master_index_list[i5_name].values[0],
-                       'dual_plate_id':filt_subset_master_index_list['Dual_Plate_ID'].values[0],
-                       'dual_plate_well':filt_subset_master_index_list['Barcode_Well'].values[0]}
-        hopped_list.append(hopped_dict)
+
+        if filt_subset_master_index_list[i5_name].values[0] != hopped_indices[hopped_indices['i7_barcode']==i7_barcode]['i5_barcode'].values[0]:
+            hopped_dict = {'i7_barcode':i7_barcode,
+                           'i5_barcode': hopped_indices[hopped_indices['i7_barcode']==i7_barcode]['i5_barcode'].values[0],
+                           'reads': hopped_indices[hopped_indices['i7_barcode']==i7_barcode]['reads'].values[0],
+                           'i5_correct':filt_subset_master_index_list[i5_name].values[0],
+                           'dual_plate_id':filt_subset_master_index_list['Dual_Plate_ID'].values[0],
+                           'dual_plate_well':filt_subset_master_index_list['Barcode_Well'].values[0]}
+            hopped_list.append(hopped_dict)
     final_data = pd.DataFrame(hopped_list,columns = ['i7_barcode','i5_barcode','i5_correct','reads','dual_plate_id','dual_plate_well','reads'])
-
-
+    
+    
     if final_data.empty:
-        print("No hopped indices")
+        print("No hopped indices within the plates on your sample sheet")
         return(final_data)
     else:
-        print(''.join(['You have ', str(len(final_data)), ' hopped barcodes']))
+        print(''.join(['You have ', str(len(final_data)), ' hopped barcodes within the plate on your sample sheet']))
         return(final_data)
-
 
 
 def filter_hopped_indices(filtered, hopped_index):
