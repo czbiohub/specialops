@@ -115,7 +115,7 @@ def TruSeq_dual_unique_filter(top_undetermined,sequencer,index_length):
     df = TruSeq_dual_unique_check(top_undetermined, sequencer, index_length)
     df = df[df['Dual_Plate_ID'] == 'NA']
     print(''.join(['Of ',str(len(top_undetermined)),' barcodes given, ', str(len(df)),' barcodes were not TruSeq dual-unique indices.']))
-    return df[['i7_barcode','i5_barcode','reads']]
+    return df[['i7_barcode','i5_barcode','reads']].reset_index()
 
 
 #IDENTIFY ANY TOP UNDETERMINED BARCODES FROM top_undetermined_barcodes() DATAFRAME WHICH MAY HAVE HOPPED ON THIS RUN AND RETURN DATAFRAME
