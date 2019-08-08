@@ -280,7 +280,7 @@ dualuniq_G_filtered = TruSeq_dual_unique_filter(G_filtered,sequencer,index_lengt
 # In[812]:
 
 
-hopped_index = hopped_indices(G_filtered,index_plates,sequencer, index_length)
+hopped_index = hopped_indices(dualuniq_G_filtered,index_plates,sequencer, index_length)
 hopped_index.to_csv("Hopped_Indices.csv")
 
 
@@ -290,7 +290,7 @@ hopped_index.to_csv("Hopped_Indices.csv")
 # In[816]:
 
 
-leftover = filter_hopped_indices(G_filtered, hopped_index)
+leftover = filter_hopped_indices(dualuniq_G_filtered, hopped_index)
 
 
 # # View which barcodes had a perfect match with an i7 or i5, but not with both
