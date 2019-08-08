@@ -197,7 +197,7 @@ def match_i5_or_i7(leftover_indices,sequencer,index_length,dual_index_plates):
         leftover_dict['mismatches'] = sum(c1!=c2 for c1,c2 in zip(leftover_dict['i5_barcode'], leftover_dict['i5_correct']))
         leftover_list.append(leftover_dict)
     matchingi7 = len(leftover_list)
-    print(''.join(['Of ',str(len(leftover_indices)),' barcodes given, ', str(matchingi7),' barcodes had an i7 perfectly matching an i7 in your sample sheet.']))
+    print(''.join(['Of ',str(len(leftover_indices)),' barcodes given, ', str(matchingi7),' barcodes had an i7 perfectly matching an i7 in a plate in your sample sheet.']))
 
     #match identical i5
     for i5_barcode in leftover_indices['i5_barcode']:
@@ -215,7 +215,7 @@ def match_i5_or_i7(leftover_indices,sequencer,index_length,dual_index_plates):
                          'description': 'i5 matches 100% with an i5 in sample sheet, i7 does not'}
         leftover_dict['mismatches'] = sum(c1!=c2 for c1,c2 in zip(leftover_dict['i7_barcode'], leftover_dict['i7_correct']))
         leftover_list.append(leftover_dict)
-    print(''.join(['Of ',str(len(leftover_indices)),' barcodes given, ', str(len(leftover_list)-matchingi7),' barcodes had an i5 perfectly matching an i5 in your sample sheet.']))
+    print(''.join(['Of ',str(len(leftover_indices)),' barcodes given, ', str(len(leftover_list)-matchingi7),' barcodes had an i5 perfectly matching an i5 in a plate in your sample sheet.']))
     final_data = pd.DataFrame(leftover_list,columns = ['i7_barcode','i5_barcode','i7_correct','i5_correct','reads','dual_plate_id','dual_plate_well','reads','mismatches','description'])
 
     return final_data
