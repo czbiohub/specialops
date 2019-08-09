@@ -223,7 +223,6 @@ def match_i5_or_i7(leftover_indices,sequencer,index_length,dual_index_plates):
     subset_master_index_list = master_index_list.loc[master_index_list['Dual_Plate_ID'].isin(dual_index_plates)]
     leftover_list = [];
 
-    print(leftover_indices)
 
     #match identical i7
     for i7_barcode in leftover_indices['i7_barcode']:
@@ -235,7 +234,6 @@ def match_i5_or_i7(leftover_indices,sequencer,index_length,dual_index_plates):
                          'reads': leftover_indices[leftover_indices['i7_barcode']==i7_barcode]['reads'].values[0],
                          'i7_correct':i7_barcode,
                          'i5_correct':"i5 does not match an index in our TruSeq dataset",
-                         'dual_plate_id':"Not a plate in your sample sheet",
                          'dual_plate_well':"N/A",
                          'description': 'i7 matches 100% with an i7 in TruSeq dataset, i5 does not'}
             else:
@@ -289,13 +287,6 @@ def match_i5_or_i7(leftover_indices,sequencer,index_length,dual_index_plates):
 
 # In[1132]:
 
-
-index_length = 12;
-sequencer = 'novaseq';
-number_undetermined_barcodes = 10000;
-index_plates = ["Dual-122","Dual-123","Dual-124","Dual-125"]
-#index_plates = ["Dual-096","Dual-097","Dual-098","Dual-099"]
-file = "seq5mil_Undetermined_S0_L001_R1_001.fastq"
 
 
 # # Run to pull out all the barcodes from the Undetermined fastq
