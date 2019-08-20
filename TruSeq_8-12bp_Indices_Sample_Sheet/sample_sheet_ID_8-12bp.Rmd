@@ -17,7 +17,7 @@ rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Ho
 
 Choose a sequencer: iseq, miseq, nextseq, novaseq
 ```{r Sequencer}
-sequencer <- "novaseq"
+sequencer <- "miseq"
 ```
 
 Specify index length: 8, 12
@@ -27,19 +27,19 @@ indexlength <- 12
 
 Enter the name of your file
 ```{r Filename with your Sample IDs and Barcode Information}
-filename <- "../TruSeq_8-12bp_Indices_Sample_Sheet/CZB-Sample-Input-Test.csv"
+filename <- "../../../Sample Sheets/RT-FLASH-003_SampleSheet_Input.csv"
 input <- read_csv(filename)
 ```
 
 Metadata Step 1 of 2: These values will be used to fill in blanks in your sample sheet (will fill in an entire column or any empty cells in a column). If you wish them to remain blank, leave an empty string "".
 ```{r Metadata Step 1 of 2: constant metadata}
-Study_ID_fill <- "TB-FLASH"
-Study_Description_fill <- "CSF DNA seq of patients with TB/HIV co-infection as controls for future FLASHed samples"
-BioSample_ID_fill <- "TB-FLASH-CSF-DNA"
-BioSample_Description_fill <- "Cerebrospinal fluid"
+Study_ID_fill <- "RT-FLASH"
+Study_Description_fill <- "Experimenting with cDNA kits on Pseudomonas and Ecoli isolates for compatibility with FLASH"
+BioSample_ID_fill <- ""
+BioSample_Description_fill <- ""
 Sample_Owner_fill <- "Amy Lyden"
-Organism_fill <- "mycobacterium tuberculosis"
-Host_fill <- "human"
+Organism_fill <- ""
+Host_fill <- "Human"
 Gender_fill <- ""
 Tissue_Source_fill <- ""
 FACS_Markers_fill <- ""
