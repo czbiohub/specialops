@@ -1,11 +1,12 @@
 ---
 
-title: "sample_sheet_rmd_ID"
+title: "sample_sheet_rmd_ID_version2"
 output: html_document
 ---
 
 Import tidyverse 
 ```{r} 
+library(plyr)
 library(tidyverse)
 ```
 
@@ -25,28 +26,43 @@ Specify index length: 8, 12
 indexlength <- 12
 ```
 
+Specify well number in plate: 96, 384
+```{r Sequencer}
+wellnumber <- 384
+```
+
+Specify plates by quadrant (for 384-well use only), OPTIONAL
+```{r Sequencer}
+if (wellnumber==384) {
+Plate_A1 <- "Dual-001"
+Plate_A2 <- "Dual-002"
+Plate_B1 <- "Dual-003"
+Plate_B2 <- "Dual-004"
+}
+```
+
 Enter the name of your file
 ```{r Filename with your Sample IDs and Barcode Information}
-filename <- "../../../Sample Sheets/RT-FLASH-003_SampleSheet_Input.csv"
+filename <- "../TruSeq_8-12bp_Indices_Sample_Sheet/CZB-Sample-Input-Test_384.csv"
 input <- read_csv(filename)
 ```
 
 Metadata Step 1 of 2: These values will be used to fill in blanks in your sample sheet (will fill in an entire column or any empty cells in a column). If you wish them to remain blank, leave an empty string "".
 ```{r Metadata Step 1 of 2: constant metadata}
-Study_ID_fill <- "RT-FLASH"
-Study_Description_fill <- "Experimenting with cDNA kits on Pseudomonas and Ecoli isolates for compatibility with FLASH"
-BioSample_ID_fill <- ""
-BioSample_Description_fill <- ""
-Sample_Owner_fill <- "Amy Lyden"
+Study_ID_fill <- "MGHEP_0829"
+Study_Description_fill <- "Comparing host gene expression in colonized vs germ free mice"
+BioSample_ID_fill <- "Humanized_Mouse1_RK"
+BioSample_Description_fill <- "Humanized_Mouse1_RK"
+Sample_Owner_fill <- "Janice_Goh"
 Organism_fill <- ""
-Host_fill <- "Human"
+Host_fill <- ""
 Gender_fill <- ""
 Tissue_Source_fill <- ""
 FACS_Markers_fill <- ""
 ```
 
 
-Metadata Step 2 of 2: This section will pull in the metadata from your sample sheet and the populate empty cells with the values from Metadata Step 2. Do not edit below this line, you can now press *OPTION+CMD+R* or *RUN ALL* under *Run* in the upper right of the script.
+Metadata Step 2 of 3: This section will pull in the metadata from your sample sheet and the populate empty cells with the values from Metadata Step 2. Do not edit below this line, you can now press *OPTION+CMD+R* or *RUN ALL* under *Run* in the upper right of the script.
 ```{r Metadata Step 2 of 2: filled metadata in CSV}
 Study_ID <- input$Study_ID
 Study_Description <- input$Study_Description
@@ -80,7 +96,110 @@ dualindices <- read_csv(file ="2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001
 
 
 No changes beyond this point. This part of the code will extract the correct barcodes from the index file, use the correct i5 index (i5 or revcom), then fill in the rest of the sample sheet with given information. Output will be a file with today's date.
+
+
 ```{r}
+
+if (wellnumber==96) {
+dualindices$index_name <- paste(dualindices$Dual_Plate_ID,"_",dualindices$Barcode_Well, sep="")
+
+input$index_name <- paste(input$Dual_Plate_ID,"_", input$Barcode_Well, sep="")
+
+index_subset <- subset(dualindices, index_name %in% input$index_name)
+
+index_subset_ordered <- index_subset[match(input$index_name, index_subset$index_name),]
+
+if ((sequencer == "novaseq" ||
+    sequencer == "miseq") & indexlength == 12) {
+  update_index_subset <- data.frame(
+      Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index = index_subset_ordered$i7_index_RC,
+      Index2 = index_subset_ordered$i5_index_F
+    )
+} else if ((sequencer == "novaseq" ||
+    sequencer == "miseq") & indexlength == 8) {
+  update_index_subset <- data.frame(
+      Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index = index_subset_ordered$i7_8bp_RC,
+      Index2 = index_subset_ordered$i5_8bp_F
+
+    )
+} else if ((sequencer == "iseq" ||
+    sequencer == "nextseq") & indexlength == 8) {
+  update_index_subset <- data.frame(
+      Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index = index_subset_ordered$i7_8bp_RC,
+      Index2 = index_subset_ordered$i5_8bp_RC
+
+    )
+} else {
+  update_index_subset <- data.frame(
+      Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
+      Index = index_subset_ordered$i7_index_RC,
+      Index2 = index_subset_ordered$i5_index_RC
+   
+    )
+}
+
+final_update <- update_index_subset %>%
+  add_column(
+    Study_ID,
+    Study_Description,
+    BioSample_Description,
+    BioSample_ID,
+    Sample_Owner,
+    Sample_ID = input$Sample_ID,
+    Sample_Name = input$Sample_ID,
+    Organism,
+    Host,
+    Gender,
+    Tissue_Source,
+    FACS_Markers
+  ) %>%
+  select(
+    Study_ID,
+    Study_Description,
+    BioSample_ID,
+    BioSample_Description,
+    Sample_ID,
+    Sample_Name,
+    Sample_Owner,
+    Index_ID,
+    Index,
+    Index2_ID,
+    Index2,
+    Organism,
+    Host,
+    Gender,
+    Tissue_Source,
+    FACS_Markers
+  )
+
+
+date2 <- Sys.Date()
+files <- as.list(str_split(filename,"/"))
+filename <- files[[1]][length(files[[1]])]
+write_csv(final_update, paste(date2, "_", sequencer, "_",indexlength,"bp_", "CZB-TruSeq-SampleSheet", "_", filename, sep = ""))
+}
+```
+
+```{r}
+
+if (wellnumber==384) {
+  
+bigplatetosmallplates <- read_csv(file = "384to96platemapper.csv")
+bigplatetosmallplates$barcodeplateid <- mapvalues(bigplatetosmallplates$plate_quadrant_ID,
+          from=c("Plate_A1","Plate_A2","Plate_B1", "Plate_B2"),
+          to=c(Plate_A1,Plate_A2,Plate_B1, Plate_B2))
+
+input$Dual_Plate_ID <- bigplatetosmallplates$barcodeplateid[match(input$Sample_Well,bigplatetosmallplates$well_location_384)]
+
+input$Barcode_Well <- bigplatetosmallplates$well_location_96[match(input$Sample_Well,bigplatetosmallplates$well_location_384)]
+
 dualindices$index_name <- paste(dualindices$Dual_Plate_ID,"_",dualindices$Barcode_Well, sep="")
 
 input$index_name <- paste(input$Dual_Plate_ID,"_", input$Barcode_Well, sep="")
@@ -165,5 +284,6 @@ files <- as.list(str_split(filename,"/"))
 filename <- files[[1]][length(files[[1]])]
 write_csv(final_update, paste(date2, "_", sequencer, "_",indexlength,"bp_", "CZB-TruSeq-SampleSheet", "_", filename, sep = ""))
 
+}
 
 ```
