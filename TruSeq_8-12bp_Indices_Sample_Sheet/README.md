@@ -1,5 +1,5 @@
 # Sample Sheet Generation
-An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices. If you are creating a 384-well barcode plate from the 96-well barcode plates, note that the 384-well plate must be made according to the layout below.
+An R script for generating sample sheets for the CZB TruSeq 8-12bp Indices. If you are creating a 384-well barcode plate from the 96-well barcode plates, note that the 384-well plate must be made according to the layout below in the link.
 
 ![96-well to 384-well map](https://github.com/czbiohub/specialops/tree/master/TruSeq_8-12bp_Indices_Sample_Sheet/96to384wellmap.jpg "96to384wellmap.jpg")
 
