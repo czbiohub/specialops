@@ -43,7 +43,8 @@ Open the `"sample_sheet_ID_8-12bp_96-384well.Rmd"`file in RStudio.
 2. Change the index length on Line 25 to either 8 or 12 depending on desired length
 3. Change the filename on Line 30 to the name of your sample sheet CSV that you prepared (this can include a path to the filename)
 4. OPTIONAL If using the 384-well input sheet, change the Plate_IDs on line 36 to match the plates used to make the 384-well plate according to the layout presented in the first image.
-5. In Metadata Step 1 of 2, on Lines 52-61, fill in a constant value to populate blank cells. If you wish to leave blank cells blank, give the variable an empty string `""`.
+5. Select the input sheet on line 45.
+6. In Metadata Step 1 of 2, on Lines 52-61, fill in a constant value to populate blank cells. If you wish to leave blank cells blank, give the variable an empty string `""`.
 
 ### Running the script
 
