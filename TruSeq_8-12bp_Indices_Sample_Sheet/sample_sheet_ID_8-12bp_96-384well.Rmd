@@ -18,7 +18,7 @@ rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Ho
 
 Choose a sequencer: iseq, miseq, nextseq, novaseq
 ```{r Sequencer}
-sequencer <- "miseq"
+sequencer <- "novaseq"
 ```
 
 Specify index length: 8, 12
@@ -109,16 +109,14 @@ index_subset <- subset(dualindices, index_name %in% input$index_name)
 
 index_subset_ordered <- index_subset[match(input$index_name, index_subset$index_name),]
 
-if ((sequencer == "novaseq" ||
-    sequencer == "miseq") & indexlength == 12) {
+if ((sequencer == "miseq") & indexlength == 12) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index = index_subset_ordered$i7_index_RC,
       Index2 = index_subset_ordered$i5_index_F
     )
-} else if ((sequencer == "novaseq" ||
-    sequencer == "miseq") & indexlength == 8) {
+} else if ((sequencer == "miseq") & indexlength == 8) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
@@ -126,7 +124,8 @@ if ((sequencer == "novaseq" ||
       Index2 = index_subset_ordered$i5_8bp_F
 
     )
-} else if ((sequencer == "iseq" ||
+} else if ((sequencer == "iseq" ||    
+    sequencer == "novaseq" ||
     sequencer == "nextseq") & indexlength == 8) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
@@ -208,16 +207,14 @@ index_subset <- subset(dualindices, index_name %in% input$index_name)
 
 index_subset_ordered <- index_subset[match(input$index_name, index_subset$index_name),]
 
-if ((sequencer == "novaseq" ||
-    sequencer == "miseq") & indexlength == 12) {
+if ((sequencer == "miseq") & indexlength == 12) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index = index_subset_ordered$i7_index_RC,
       Index2 = index_subset_ordered$i5_index_F
     )
-} else if ((sequencer == "novaseq" ||
-    sequencer == "miseq") & indexlength == 8) {
+} else if ((sequencer == "miseq") & indexlength == 8) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
       Index2_ID = paste(index_subset_ordered$i5_plate_ID,"_",index_subset_ordered$index_name, sep=""),
@@ -226,6 +223,7 @@ if ((sequencer == "novaseq" ||
 
     )
 } else if ((sequencer == "iseq" ||
+    sequencer == "novaseq" ||
     sequencer == "nextseq") & indexlength == 8) {
   update_index_subset <- data.frame(
       Index_ID = paste(index_subset_ordered$i7_plate_ID,"_",index_subset_ordered$index_name, sep=""),
