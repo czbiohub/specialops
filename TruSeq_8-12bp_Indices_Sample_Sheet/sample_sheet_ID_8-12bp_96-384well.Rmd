@@ -13,7 +13,7 @@ library(tidyverse)
 
 Clean out variables in global env from previous runs
 ```{r}
-rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Gender,Host,Sample_ID,Organism,input,Sample_Owner,sequencer,Study_Description,Study_ID,Tissue_Source,update_index_subset, index_subset, Gender_fill, Host_fill,Sample_Owner_fill,Organism_fill,Tissue_Source_fill, filename, index_subset_ordered, dualindices, files, BioSample_Description_fill,BioSample_ID_fill,FACS_Markers_fill,Study_Description_fill,Study_ID_fill, indexlength)
+rm(BioSample_Description,BioSample_ID,date2,FACS_Markers, final_update,Sex,Host,Sample_ID,Organism,input,Sample_Owner,sequencer,Study_Description,Study_ID,Tissue_Source,update_index_subset, index_subset, Sex_fill, Host_fill,Sample_Owner_fill,Organism_fill,Tissue_Source_fill, filename, index_subset_ordered, dualindices, files, BioSample_Description_fill,BioSample_ID_fill,FACS_Markers_fill,Study_Description_fill,Study_ID_fill, indexlength)
 ```
 
 Choose a sequencer: iseq, miseq, nextseq, novaseq
@@ -41,7 +41,7 @@ Plate_B2 <- "Dual-004"
 }
 ```
 
-Enter the name of your file
+Enter the name of your file,change well number to "96" or "384"
 ```{r Filename with your Sample IDs and Barcode Information}
 filename <- "../TruSeq_8-12bp_Indices_Sample_Sheet/CZB-Sample-Input-Test_384.csv"
 input <- read_csv(filename)
@@ -56,9 +56,8 @@ BioSample_Description_fill <- "Humanized_Mouse1_RK"
 Sample_Owner_fill <- "Janice_Goh"
 Organism_fill <- ""
 Host_fill <- ""
-Gender_fill <- ""
+Sex_fill <- ""
 Tissue_Source_fill <- ""
-FACS_Markers_fill <- ""
 ```
 
 
@@ -72,9 +71,8 @@ Sample_ID <- c()
 Sample_Owner <- input$Sample_Owner
 Organism <- input$Organism
 Host <- input$Host
-Gender <- input$Gender
+Sex <- input$Sex
 Tissue_Source <- input$Tissue_Source
-FACS_Markers <- input$FACS_Markers
 
 Study_ID[is.na(Study_ID)] <- Study_ID_fill
 Study_Description[is.na(Study_Description)] <- Study_Description_fill
@@ -83,9 +81,8 @@ BioSample_Description[is.na(BioSample_Description)] <- BioSample_Description_fil
 Sample_Owner[is.na(Sample_Owner)] <- Sample_Owner_fill
 Organism[is.na(Organism)] <- Organism_fill
 Host[is.na(Host)] <- Host_fill
-Gender[is.na(Gender)] <- Gender_fill
+Sex[is.na(Sex)] <- Sex_fill
 Tissue_Source[is.na(Tissue_Source)] <- Tissue_Source_fill
-FACS_Markers[is.na(FACS_Markers)] <- FACS_Markers_fill
 ```
 
 
@@ -155,9 +152,8 @@ final_update <- update_index_subset %>%
     Sample_Name = input$Sample_ID,
     Organism,
     Host,
-    Gender,
-    Tissue_Source,
-    FACS_Markers
+    Sex,
+    Tissue_Source
   ) %>%
   select(
     Study_ID,
@@ -173,9 +169,8 @@ final_update <- update_index_subset %>%
     Index2,
     Organism,
     Host,
-    Gender,
-    Tissue_Source,
-    FACS_Markers
+    Sex,
+    Tissue_Source
   )
 
 
@@ -253,9 +248,8 @@ final_update <- update_index_subset %>%
     Sample_Name = input$Sample_ID,
     Organism,
     Host,
-    Gender,
-    Tissue_Source,
-    FACS_Markers
+    Sex,
+    Tissue_Source
   ) %>%
   select(
     Study_ID,
@@ -271,9 +265,8 @@ final_update <- update_index_subset %>%
     Index2,
     Organism,
     Host,
-    Gender,
-    Tissue_Source,
-    FACS_Markers
+    Sex,
+    Tissue_Source
   )
 
 
