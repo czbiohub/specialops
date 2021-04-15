@@ -6,7 +6,7 @@ output: html_document
 
 Import tidyverse 
 ```{r} 
-library(plyr)
+library(dplyr)
 library(tidyverse)
 ```
 
@@ -88,7 +88,7 @@ Tissue_Source[is.na(Tissue_Source)] <- Tissue_Source_fill
 
 Please specify correct input and index files (specify path if not in same wd)
 ```{r}
-dualindices <- read_csv(file ="2018-11-02-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp_020619.csv")
+dualindices <- read_csv(file ="2021-04-15-TRUSEQ-8-12BP-INDEX-PRIMERS-PLATES-001-to-012-MasterIndexList-plus8bp_020619.csv")
 ```
 
 
