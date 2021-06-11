@@ -1,2 +1,2 @@
 # specialops
-Common scripts for the SpecialOps team, including pooling by sequencing, sample sheet generation and DASH analysis
+Common scripts for the Langelier lab, Kistler group, Tato team, including pooling by sequencing, sample sheet generation and DASH analysis
